@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Application</title>
+</head>
+<body>
+<form th:action="@{/api/user/update}" th:object="${user}" method="post">
+    <input type="hidden" th:field="*{id}">
+    <label>Name</label>
+    <input type="text" th:field="*{name}">
+    <label>Age</label>
+    <input type="text" th:field="*{age}">
+    <label>Sex</label>
+    <input type="text" th:field="*{sex}">
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>
