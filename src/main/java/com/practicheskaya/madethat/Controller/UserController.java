@@ -10,46 +10,43 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/api/user")
 public class UserController {
-
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String getAllUser(Model model) {
         model.addAttribute("users", userService.getAllUser());
         model.addAttribute("user", new User());
         return "index";
     }
 
-    @PostMapping("/save")
-    public String saveUser(@ModelAttribute User user) {
+    @PostMapping("/index")
+    public String saveUser(@ModelAttribute("user") User user) {
         userService.save(user);
-        return "redirect:/api/user/all";
+        return "redirect:/index";
     }
 
-    @GetMapping("/delete")
-    public String deleteUser(@RequestParam Long id) {
+    @GetMapping("/index/{id}/delete")
+    public String deleteUser(@PathVariable Long id) {
         userService.delete(id);
-        return "redirect:/api/user/all";
+        return "redirect:/index";
     }
 
-    @GetMapping("/edit")
-    public String editUser(@RequestParam Long id, Model model) {
+    @GetMapping("/index/{id}/edit")
+    public String editUser(@PathVariable Long id, Model model) {
         Optional<User> user = userService.getById(id);
-        model.addAttribute("user", user);
+        model.addAttribute("user", user.orElse(new User()));
         return "edit";
     }
 
-    @PostMapping("/update")
-    public String updateUser(@ModelAttribute User user) {
+    @PostMapping("/index/{id}/update")
+    public String updateUser(@ModelAttribute("user") User user) {
         userService.save(user);
-        return "redirect:/api/user/all";
+        return "redirect:/index";
     }
 }
-

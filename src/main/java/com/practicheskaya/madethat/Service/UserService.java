@@ -18,22 +18,18 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    // Сохранение
-    public User save(User user) {
-        return userRepository.save(user);
+    public void save(User user) {
+        userRepository.save(user);
     }
 
-    // Удаление
     public void delete(Long id) {
         this.userRepository.deleteById(id);
     }
 
-    // Поиск по ID
     public Optional<User> getById(Long id) {
         return userRepository.findById(id);
     }
 
-    // Получить всех пользователей
     public List<User> getAllUser() {
         return userRepository.findAll();
     }
